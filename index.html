@@ -3,41 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Hans의 개발 블로그</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        * {
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
         .container {
-            text-align: center;
-            padding: 2rem;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        h1 {
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        p {
+
+        .hero p {
             font-size: 1.2rem;
-            opacity: 0.9;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .post-category {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .post-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            line-height: 1.3;
+        }
+
+        .post-excerpt {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 1rem;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: #f8f9fa;
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 120px; height: 120px; top: 60%; right: 10%; animation-delay: 2s; }
+        .shape:nth-child(3) { width: 60px; height: 60px; bottom: 20%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hello World!</h1>
-        <p>Welcome to Hans GitHub Pages</p>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
+
+    <header>
+        <nav class="container">
+            <div class="logo">Hans.dev</div>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="blog.html">블로그</a></li>
+                <li><a href="#about">소개</a></li>
+                <li><a href="#contact">연락처</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>개발 여정을 기록하다</h1>
+            <p>코딩의 즐거움과 새로운 기술에 대한 탐구를 공유합니다. 함께 성장하는 개발자가 되어요!</p>
+        </section>
+
+        <section class="blog-grid">
+            <article class="blog-post">
+                <div class="post-meta">
+                    <span class="post-category">JavaScript</span>
+                    <span>2025.06.25</span>
+                </div>
+                <h2 class="post-title">모던 JavaScript와 함께하는 웹 개발</h2>
+                <p class="post-excerpt">
+                    ES6+ 문법부터 최신 프레임워크까지, 현대적인 JavaScript 개발 환경에서 
+                    효율적으로 코딩하는 방법을 알아봅시다. 비동기 처리와 모듈 시스템을 중심으로...
+                </p>
+                <a href="#" class="read-more">자세히 읽기 →</a>
+            </article>
+
+            <article class="blog-post">
+                <div class="post-meta">
+                    <span class="post-category">React</span>
+                    <span>2025.06.20</span>
+                </div>
+                <h2 class="post-title">React Hooks 완전 정복하기</h2>
+                <p class="post-excerpt">
+                    useState, useEffect부터 커스텀 훅 작성까지, React Hooks의 모든 것을 
+                    실전 예제와 함께 살펴봅니다. 함수형 컴포넌트의 진정한 힘을...
+                </p>
+                <a href="#" class="read-more">자세히 읽기 →</a>
+            </article>
+
+            <article class="blog-post">
+                <div class="post-meta">
+                    <span class="post-category">개발일지</span>
+                    <span>2025.06.15</span>
+                </div>
+                <h2 class="post-title">첫 오픈소스 기여 후기</h2>
+                <p class="post-excerpt">
+                    처음으로 오픈소스 프로젝트에 기여한 경험을 공유합니다. PR 작성부터 
+                    코드 리뷰까지의 전 과정과 배운 점들을 솔직하게 이야기해보겠습니다...
+                </p>
+                <a href="#" class="read-more">자세히 읽기 →</a>
+            </article>
+
+            <article class="blog-post">
+                <div class="post-meta">
+                    <span class="post-category">CSS</span>
+                    <span>2025.06.10</span>
+                </div>
+                <h2 class="post-title">CSS Grid vs Flexbox 완벽 가이드</h2>
+                <p class="post-excerpt">
+                    언제 Grid를 사용하고 언제 Flexbox를 사용해야 할까요? 
+                    실제 레이아웃 예제를 통해 두 기술의 차이점과 활용법을 명확히 정리해보겠습니다...
+                </p>
+                <a href="#" class="read-more">자세히 읽기 →</a>
+            </article>
+
+            <article class="blog-post">
+                <div class="post-meta">
+                    <span class="post-category">AI/ML</span>
+                    <span>2025.06.05</span>
+                </div>
+                <h2 class="post-title">개발자를 위한 AI 도구 활용법</h2>
+                <p class="post-excerpt">
+                    ChatGPT, GitHub Copilot, Claude 등 AI 도구들을 개발 워크플로우에 
+                    효과적으로 통합하는 방법을 실제 사용 사례와 함께 소개합니다...
+                </p>
+                <a href="#" class="read-more">자세히 읽기 →</a>
+            </article>
+
+            <article class="blog-post">
+                <div class="post-meta">
+                    <span class="post-category">회고</span>
+                    <span>2025.06.01</span>
+                </div>
+                <h2 class="post-title">2025년 상반기 개발 회고</h2>
+                <p class="post-excerpt">
+                    올해 상반기 동안 학습한 기술들과 진행한 프로젝트들을 돌아봅니다. 
+                    성취한 것들과 아쉬웠던 점들, 그리고 하반기 계획까지...
+                </p>
+                <a href="#" class="read-more">자세히 읽기 →</a>
+            </article>
+        </section>
+
+        <aside class="sidebar">
+            <h3>🏷️ 인기 태그</h3>
+            <div class="tag-cloud">
+                <a href="#" class="tag">JavaScript</a>
+                <a href="#" class="tag">React</a>
+                <a href="#" class="tag">Node.js</a>
+                <a href="#" class="tag">CSS</a>
+                <a href="#" class="tag">Python</a>
+                <a href="#" class="tag">개발일지</a>
+                <a href="#" class="tag">AI/ML</a>
+                <a href="#" class="tag">웹개발</a>
+                <a href="#" class="tag">프론트엔드</a>
+                <a href="#" class="tag">백엔드</a>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Hans.dev - 개발과 성장의 기록</p>
+        </div>
+    </footer>
+
+    <script>
+        // 부드러운 스크롤 효과
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 블로그 포스트 클릭 효과
+        document.querySelectorAll('.blog-post').forEach(post => {
+            post.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('read-more')) {
+                    const readMoreLink = this.querySelector('.read-more');
+                    if (readMoreLink) {
+                        readMoreLink.click();
+                    }
+                }
+            });
+        });
+
+        // 스크롤 시 헤더 배경 변화
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
 </body>
 </html>
